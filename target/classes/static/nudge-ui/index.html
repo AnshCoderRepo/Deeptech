@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Create Nudge</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f7f8;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      background: white;
+      padding: 2rem 3rem;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      max-width: 600px;
+      width: 100%;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #0078d7;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    label {
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      margin-top: 1rem;
+    }
+    input[type="text"],
+    input[type="datetime-local"],
+    textarea {
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+      resize: vertical;
+    }
+    textarea {
+      min-height: 80px;
+    }
+    input[type="file"] {
+      margin-top: 0.3rem;
+    }
+    .image-preview {
+      margin-top: 0.5rem;
+      max-height: 150px;
+      border-radius: 6px;
+      object-fit: contain;
+      border: 1px solid #ccc;
+    }
+    button {
+      margin-top: 2rem;
+      padding: 0.75rem;
+      background-color: #0078d7;
+      color: white;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #005fa3;
+    }
+    .invitation-line {
+      font-style: italic;
+      color: #555;
+      margin-top: 0.3rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Create a Nudge</h1>
+    <form id="nudgeForm">
+      <label for="eventTag">Event Tag</label>
+      <input type="text" id="eventTag" name="eventTag" placeholder="Tag your event" required />
+
+      <label for="title">Nudge Title</label>
+      <input type="text" id="title" name="title" placeholder="Enter nudge title" required />
+
+      <label for="coverImage">Cover Image</label>
+      <input type="file" id="coverImage" name="coverImage" accept="image/*" />
+      <img id="coverImagePreview" class="image-preview" src="" alt="Cover Image Preview" style="display:none;" />
+
+      <label for="sendTime">Send Time</label>
+      <input type="datetime-local" id="sendTime" name="sendTime" required />
+
+      <label for="description">Description</label>
+      <textarea id="description" name="description" placeholder="Enter nudge description" required></textarea>
+
+      <label for="icon">Icon</label>
+      <input type="file" id="icon" name="icon" accept="image/*" />
+      <img id="iconPreview" class="image-preview" src="" alt="Icon Preview" style="display:none;" />
+
+      <label for="invitationLine">One-line Invitation</label>
+      <input type="text" id="invitationLine" name="invitationLine" placeholder="Enter one-line invitation" required />
+      <div class="invitation-line" id="invitationLinePreview"></div>
+
+      <button type="submit">Create Nudge</button>
+    </form>
+  </div>
+
+  <script>
+    const coverImageInput = document.getElementById('coverImage');
+    const coverImagePreview = document.getElementById('coverImagePreview');
+    const iconInput = document.getElementById('icon');
+    const iconPreview = document.getElementById('iconPreview');
+    const invitationLineInput = document.getElementById('invitationLine');
+    const invitationLinePreview = document.getElementById('invitationLinePreview');
+
+    coverImageInput.addEventListener('change', function() {
+      const file = this.files[0];
+      if (file) {
+        coverImagePreview.src = URL.createObjectURL(file);
+        coverImagePreview.style.display = 'block';
+      } else {
+        coverImagePreview.src = '';
+        coverImagePreview.style.display = 'none';
+      }
+    });
+
+    iconInput.addEventListener('change', function() {
+      const file = this.files[0];
+      if (file) {
+        iconPreview.src = URL.createObjectURL(file);
+        iconPreview.style.display = 'block';
+      } else {
+        iconPreview.src = '';
+        iconPreview.style.display = 'none';
+      }
+    });
+
+    invitationLineInput.addEventListener('input', function() {
+      invitationLinePreview.textContent = this.value;
+    });
+
+    document.getElementById('nudgeForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Nudge creation form submitted. Implement API integration as needed.');
+      // Here you can add code to send form data to backend API
+    });
+  </script>
+</body>
+</html>
